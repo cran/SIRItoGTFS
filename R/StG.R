@@ -25,13 +25,15 @@
 #' with the SIRI table.
 #' @return A \code{\link[base]{data.frame}} containing a comparison between a public transportation mode's schedule and real-time data.
 #' @references
-#' Bogin, D., Levy, N. and Ben-Elia E. (2018) \emph{Estimation of public transport service reliability using Big Data and open source tools}
+#' Bogin, D., Levy, N. and Ben-Elia E. (2018) \emph{Estimation of Public Transportation Service Reliability Using Big Data and Open Source Tools}
 #' @seealso \code{readGTFS}
 #' @examples
 #' require(SIRItoGTFS)
 #' require(data.table)
 #' # use the sample SIRI data included with the package
-#' SIRIDF = SIRIsample
+#' data("sirisample")
+#' SIRIsample$Longitude = as.numeric(SIRIsample$Longitude)
+#' SIRIsample$Latitude = as.numeric(SIRIsample$Latitude)
 #' # load your own GTFS data with `readGTFS()`
 #' # or use the subset of GTFS data conformable to the SIRI sample, also included in the package
 #' data("GTFSstops")
@@ -40,14 +42,15 @@
 #' data("GTFStrips")
 #' data("GTFSagency")
 #' data("GTFSroutes")
-#' busesDF = STG(SIRIDF,
-#'               GTFSstops. = GTFSstops,
-#'               GTFSagency. = GTFSagency,
-#'               GTFScalendar. = GTFScalendar,
-#'               GTFSroutes. = GTFSroutes,
-#'               GTFSstop_times. = GTFSstop_times,
-#'               GTFStrips. = GTFStrips,
-#'               linerefs = unique(SIRIDF$lineref[1]))
+#' busesDF = STG(SIRIsample,
+#'              GTFSstops. = GTFSstops,
+#'              GTFSagency. = GTFSagency,
+#'              GTFScalendar. = GTFScalendar,
+#'              GTFSroutes. = GTFSroutes,
+#'              GTFSstop_times. = GTFSstop_times,
+#'              GTFStrips. = GTFStrips,
+#'              linerefs = unique(SIRIsample$LineRef[1]))
+#'
 #'
 #' @keywords package spatial
 #' @importFrom data.table rbindlist

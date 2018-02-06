@@ -174,7 +174,7 @@
 #' the data is provided for anyone wishing to test the methods used during research.
 #'
 #'
-#' @format A data frame with 836 observations on the following 22 variables.
+#' @format A data frame with 2500 observations on the following 22 variables.
 #' \describe{
 #'    \item{\code{RecordedAtTime}}{Time stamp provided by the server, can differ within the same call, response rate for stops to server may vary}
 #'    \item{\code{ItemIdentifier}}{The server's ID for each observation}
@@ -199,7 +199,7 @@
 #'    \item{\code{AimedArrivalTime}}{The scheduled time, only relevant for trips that have not yet begun}
 #'    \item{\code{ArrivalStatus}}{In fully operational systems this should report whether the bus is early or late, in this case it does not report anything}
 #' }
-#' @references Bogin, D., Levy, N. and Ben-Elia E. (2018) \emph{Estimation of public transport service reliability using Big Data and open source tools}
+#' @references Bogin, D., Levy, N. and Ben-Elia E. (2018) \emph{Estimation of Public Transportation Service Reliability Using Big Data and Open Source Tools}
 #' @source http://user47094.vs.easily.co.uk/siri/documentation.htm
 #' @aliases sirisample
 "SIRIsample"

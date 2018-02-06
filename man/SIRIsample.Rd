@@ -5,7 +5,7 @@
 \alias{SIRIsample}
 \alias{sirisample}
 \title{A SIRI data frame sample}
-\format{A data frame with 836 observations on the following 22 variables.
+\format{A data frame with 2500 observations on the following 22 variables.
 \describe{
    \item{\code{RecordedAtTime}}{Time stamp provided by the server, can differ within the same call, response rate for stops to server may vary}
    \item{\code{ItemIdentifier}}{The server's ID for each observation}
@@ -46,6 +46,6 @@ the "request_id" and "call_time_toServer" columns were added locally and are nee
 the data is provided for anyone wishing to test the methods used during research.
 }
 \references{
-Bogin, D., Levy, N. and Ben-Elia E. (2018) \emph{Estimation of public transport service reliability using Big Data and open source tools}
+Bogin, D., Levy, N. and Ben-Elia E. (2018) \emph{Estimation of Public Transportation Service Reliability Using Big Data and Open Source Tools}
 }
 \keyword{datasets}
