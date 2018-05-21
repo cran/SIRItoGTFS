@@ -7,12 +7,12 @@
 readGTFS(directory = NULL, extension = "BOTH", sep = "auto",
   nrows = -1L, header = "auto", na.strings = "NA",
   stringsAsFactors = FALSE, verbose = getOption("datatable.verbose"),
-  autostart = 1L, skip = 0L, drop = NULL, colClasses = NULL,
+  skip = 0L, drop = NULL, colClasses = NULL,
   integer64 = getOption("datatable.integer64"), dec = if (sep != ".") "."
   else ",", check.names = FALSE, encoding = "unknown", quote = "\\"",
   strip.white = TRUE, fill = FALSE, blank.lines.skip = FALSE,
   key = NULL, prefix = "GTFS", minimal = FALSE,
-  showProgress = getOption("datatable.showProgress"), data.table = FALSE)
+  showProgress = interactive(), data.table = FALSE)
 }
 \arguments{
 \item{directory}{a directory from which to read the GTFS tables, if NULL then a manual choice is provided on windows, Linux and OSX.}
@@ -30,8 +30,6 @@ readGTFS(directory = NULL, extension = "BOTH", sep = "auto",
 \item{stringsAsFactors}{Convert all character columns to factors?}
 
 \item{verbose}{Be chatty and report timings?}
-
-\item{autostart}{Any line number within the region of machine readable delimited text, by default 30. If the file is shorter or this line is empty (e.g. short files with trailing blank lines) then the last non empty line (with a non empty line above that) is used. This line and the lines above it are used to auto detect sep and the number of fields. It's extremely unlikely that autostart should ever need to be changed, we hope.}
 
 \item{skip}{If 0 (default) use the procedure described below starting on line autostart to find the first data row. skip>0 means ignore autostart and take line skip+1 as the first data row (or column names according to header="auto"|TRUE|FALSE as usual). skip="string" searches for "string" in the file (e.g. a substring of the column names row) and starts on that line (inspired by read.xls in package gdata).}
 
@@ -61,7 +59,7 @@ readGTFS(directory = NULL, extension = "BOTH", sep = "auto",
 
 \item{minimal}{whether or not to read all the GTFS tables or just those needed for SIRItoGTFS, default is FALSE, meaning all GTFS tables will be read}
 
-\item{showProgress}{TRUE displays progress on the console using \verb{\r}. It is produced in fread's C code where the very nice (but R level) txtProgressBar and tkProgressBar are not easily available.}
+\item{showProgress}{TRUE displays progress on the console using \verb{\r}. It is produced in fread's C code where the very nice (but R level) txtProgressBar and tkProgressBar are not easily available, by default is set to the sessions's interactivity.}
 
 \item{data.table}{logical. TRUE returns a data.table. FALSE returns a data.frame. default for SIRItoGTFS is FALSE, should be kept that way.}
 }
@@ -95,7 +93,7 @@ Do Not use this function on it's own, it is meant to be used only as part of the
 
 }
 \references{
-Bogin, D., Levy, N. and Ben-Elia E. (2018) \emph{EEstimation of Public Transportation Service Reliability Using Big Data and Open Source Tools}
+Bogin, D., Levy, N. and Ben-Elia E. (2018) \emph{Spatial and Temporal Estimation of the Service Reliability of Public Transportation Using Big Data and Open Source Tools}
 }
 \seealso{
 \code{\link{STG}}, \code{\link[data.table]{fread}}, \code{\link[easycsv]{fread_folder}}

@@ -11,7 +11,6 @@
 #' @param na.strings A character vector of strings which are to be interpreted as NA values. By default ",," for columns read as type character is read as a blank string ("") and ",NA," is read as NA. Typical alternatives might be na.strings=NULL (no coercion to NA at all!) or perhaps na.strings=c("NA","N/A","null")
 #' @param stringsAsFactors Convert all character columns to factors?
 #' @param verbose Be chatty and report timings?
-#' @param autostart Any line number within the region of machine readable delimited text, by default 30. If the file is shorter or this line is empty (e.g. short files with trailing blank lines) then the last non empty line (with a non empty line above that) is used. This line and the lines above it are used to auto detect sep and the number of fields. It's extremely unlikely that autostart should ever need to be changed, we hope.
 #' @param skip If 0 (default) use the procedure described below starting on line autostart to find the first data row. skip>0 means ignore autostart and take line skip+1 as the first data row (or column names according to header="auto"|TRUE|FALSE as usual). skip="string" searches for "string" in the file (e.g. a substring of the column names row) and starts on that line (inspired by read.xls in package gdata).
 #' @param drop Vector of column names or numbers to drop, keep the rest.
 #' @param colClasses A character vector of classes (named or unnamed), as read.csv. Or a named list of vectors of column names or numbers, see examples. colClasses in fread is intended for rare overrides, not for routine use. fread will only promote a column to a higher type if colClasses requests it. It won't downgrade a column to a lower type since NAs would result. You have to coerce such columns afterwards yourself, if you really require data loss.
@@ -26,10 +25,10 @@
 #' @param key Character vector of one or more column names which is passed to setkey. It may be a single comma separated string such as key="x,y,z", or a vector of names such as key=c("x","y","z"). Only valid when argument data.table=TRUE
 #' @param prefix A character string to be prefixed to each table name, default is "GTFS".
 #' @param minimal whether or not to read all the GTFS tables or just those needed for SIRItoGTFS, default is FALSE, meaning all GTFS tables will be read
-#' @param showProgress TRUE displays progress on the console using \verb{\r}. It is produced in fread's C code where the very nice (but R level) txtProgressBar and tkProgressBar are not easily available.
+#' @param showProgress TRUE displays progress on the console using \verb{\r}. It is produced in fread's C code where the very nice (but R level) txtProgressBar and tkProgressBar are not easily available, by default is set to the sessions's interactivity.
 #' @param data.table logical. TRUE returns a data.table. FALSE returns a data.frame. default for SIRItoGTFS is FALSE, should be kept that way.
 #' @return Multiple \link[base]{data.frame} containing a representation of the data in the file with the "GTFS" prefix.
-#' @references Bogin, D., Levy, N. and Ben-Elia E. (2018) \emph{EEstimation of Public Transportation Service Reliability Using Big Data and Open Source Tools}
+#' @references Bogin, D., Levy, N. and Ben-Elia E. (2018) \emph{Spatial and Temporal Estimation of the Service Reliability of Public Transportation Using Big Data and Open Source Tools}
 #' @section Warning:
 #' Do Not use this function on it's own, it is meant to be used only as part of the STG process
 #' @seealso \code{\link{STG}}, \code{\link[data.table]{fread}}, \code{\link[easycsv]{fread_folder}}
@@ -64,7 +63,6 @@ readGTFS = function(directory = NULL,
                         na.strings="NA",
                         stringsAsFactors=FALSE,
                         verbose=getOption("datatable.verbose"),
-                        autostart=1L,
                         skip=0L,
                         drop=NULL,
                         colClasses=NULL,
@@ -79,7 +77,7 @@ readGTFS = function(directory = NULL,
                         key=NULL,
                         prefix="GTFS",
                         minimal=FALSE,
-                        showProgress=getOption("datatable.showProgress"),
+                        showProgress=interactive(),
                         data.table=FALSE
 ){
   if ("data.table" %in% rownames(installed.packages()) == FALSE) {
@@ -175,7 +173,6 @@ readGTFS = function(directory = NULL,
                                     na.strings=na.strings,
                                     stringsAsFactors=stringsAsFactors,
                                     verbose = verbose,
-                                    autostart=autostart,
                                     skip=skip,
                                     drop=drop,
                                     colClasses=colClasses,
@@ -187,7 +184,7 @@ readGTFS = function(directory = NULL,
                                     fill=fill,
                                     blank.lines.skip=blank.lines.skip,
                                     key=key,
-                                    showProgress=getOption("datatable.showProgress"),
+                                    showProgress=interactive(),
                                     data.table=data.table
         )
         assign_to_global <- function(pos=1){
